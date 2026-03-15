@@ -22,81 +22,56 @@ computer-after-sales-ai/
 │
 ├── docker-compose.yml                 # 本地开发环境编排 (MySQL / Redis / ChromaDB / MCP)
 │
-├── core/                              # ⭐ 全局核心基础设施（双端微服务共享）
-│   ├── config.py                      # 👈 我们写的 OmegaConf 配置单例 (AppConfigManager)
+├── core/                              # ⭐ 全局核心基础设施
+│   ├── config.py                      # OmegaConf 配置单例 (AppConfigManager)
 │   ├── conf/                          # 全局 YAML 配置文件
-│   │   ├── config.yaml                # 主配置文件 (llm, rag, database 等)
-│   │   ├── logging.yaml               # 日志滚动策略
-│   │   └── crawler.yaml               # 爬虫策略
 │   ├── logger.py                      # 全局日志初始化
 │   ├── exceptions.py                  # 自定义异常类
-│   ├── constants.py                   # 全局常量
-│   └── utils/                         # 通用工具函数 (time_utils, file_utils)
+│   └── constants.py                   # 全局常量
 │
 ├── services/                          # ⭐ 双核微服务集群
 │
 │   ├── customer_service_backend/      # ==========================================
 │   │                                  # 🤖 智能客服后端 (多 Agent 调度中枢)
 │   │                                  # ==========================================
-│   │   ├── main.py                    # FastAPI 启动入口 (端口 8000)
-│   │   ├── api/                       
-│   │   │   └── routes_chat.py         # 👈 给 Vue 前端调用的对话接口 (支持 SSE 流式)
+│   │   ├── main.py                    # FastAPI 启动总入口 (挂载中间件与 router)
 │   │   │
-│   │   ├── clients/                   # 🔌 微服务通信层
-│   │   │   └── kb_client.py           # 🌟 封装 HTTP/RPC 请求，去调用隔壁知识库后端的 /search 接口
+│   │   ├── api/                       # 🌐 API 路由层 (Controller)
+│   │   │   ├── router.py              # 🚀 重构: 干净的流式对话与历史记录接口 (SSE)
+│   │   │   └── schemas/               # 🚀 新增: Pydantic 强类型数据契约
+│   │   │       ├── request.py         # 入参校验 (ChatMessageRequest 等)
+│   │   │       └── response.py        # 出参校验 (StreamPacket, Union 多态等)
 │   │   │
-│   │   ├── mcp/                       # 🌟 Model Context Protocol (模型上下文协议)
-│   │   │   ├── client.py              # MCP 客户端 (供 Agent 统一调用底下的 Server)
-│   │   │   └── servers/               # MCP 协议服务器端
-│   │   │       ├── db_mcp.py          # 暴露本地 MySQL (查保修期、订单状态)
-│   │   │       └── device_mcp.py      # 暴露设备硬件级检测工具
+│   │   ├── service/                   # 🧠 业务逻辑层 (Service)
+│   │   │   ├── agent_service.py       # 🚀 重构: astream_events v2 核心流式调度器
+│   │   │   └── session_service.py     # 🚀 重构: 基于本地 JSON 的长效记忆管理系统
 │   │   │
-│   │   ├── agents/                    # 🧠 多 Agent 团队
-│   │   │   ├── supervisor_agent.py    # 大管家 Agent (判断意图：查知识库? 查订单? 转人工?)
-│   │   │   ├── diagnosis_agent.py     # 故障诊断 Agent (负责排障逻辑)
-│   │   │   └── human_handoff_agent.py # 转人工兜底 Agent
+│   │   ├── utils/                     # 🧰 业务工具箱
+│   │   │   ├── response_util.py       # 🚀 新增: ResponseFactory (统一构建前端 SSE 数据包)
+│   │   │   └── text_util.py           # 🚀 新增: HTML 卡片生成器、工具名中英映射提取
 │   │   │
-│   │   ├── workflows/                 # Agent 编排逻辑
-│   │   │   └── after_sales_graph.py   # 基于 LangGraph 的状态机流转
+│   │   ├── workflows/                 # 🗺️ Agent 编排逻辑
+│   │   │   └── after_sales_graph.py   # 基于 LangGraph 的状态机流转 (包含 Supervisor)
 │   │   │
-│   │   ├── llm/                       # 大模型调用封装
-│   │   │   └── llm_client.py          # LLM API 统一出口
+│   │   ├── agents/                    # 🤖 具体智能体节点
+│   │   │   ├── supervisor_agent.py    # 大管家 Agent 
+│   │   │   ├── tech_agent.py          # 技术支持 Agent
+│   │   │   └── service_agent.py       # 售后服务 Agent
 │   │   │
-│   │   ├── prompts/                   # Prompt 模板库 (.yaml 或 .py)
+│   │   ├── mcp/                       # 🌟 Model Context Protocol
+│   │   │   ├── client.py              
+│   │   │   └── servers/               # db_mcp.py / device_mcp.py
 │   │   │
-│   │   ├── memory/                    # AI 记忆系统
-│   │   │   ├── short_term_redis.py    # Redis：管理当前 Session 的多轮对话历史
-│   │   │   └── long_term_db.py        # MySQL：记录用户的历史维修偏好
-│   │   │
-│   │   └── database/                  # 关系型数据库 (客服侧业务表)
-│   │       ├── models_ticket.py       # 工单表、用户会话表
-│   │       └── session.py             
-│
-│
+│   │   └── llm/                       # 大模型调用封装 (llm_client.py)
+│   │
 │   ├── knowledge_platform_backend/    # ==========================================
 │   │                                  # 📚 知识平台后端 (RAG 数据治理与召回引擎)
 │   │                                  # ==========================================
-│   │   ├── main.py                    # FastAPI 启动入口 (端口 8001)
-│   │   ├── api/                       
-│   │   │   ├── routes_upload.py       # 内部运营人员传文档的接口
-│   │   │   └── routes_search.py       # 🌟 专供 customer_service_backend 调用的检索引擎入口
-│   │   │
-│   │   ├── rag/                       # 👈 我们手写的最硬核的 RAG 核心
-│   │   │   ├── hybrid_search.py       # 🚀 三路召回引擎 (Dense + BM25正文 + BM25标题)
-│   │   │   ├── splitters/             
-│   │   │   │   └── smart_splitter.py  # 🚀 Markdown 层级与 QA 结构防断裂切分器
-│   │   │   └── query_optimizer.py     # 🚀 Jieba 同义词正则规整 + LLM Query 扩写
-│   │   │
-│   │   ├── loaders/                   # 文档解析
-│   │   │   ├── pdf_loader.py
-│   │   │   └── markdown_loader.py
-│   │   │
-│   │   ├── vector_store/              # 向量数据库接口
-│   │   │   └── chroma_store.py        # ChromaDB 实例封装
-│   │   │
-│   │   └── database/                  # 关系型数据库 (知识库侧业务表)
-│   │       ├── models_doc.py          # 知识库文档元数据表、向量化任务状态表
-│   │       └── session.py
+│   │   ├── main.py                    # 端口 8001
+│   │   ├── api/                       # 上传、搜索接口
+│   │   ├── rag/                       # 🚀 三路召回、切分器、Query 重写引擎
+│   │   ├── vector_store/              # ChromaDB 实例封装
+│   │   └── database/                  # 知识库侧业务表
 │
 │
 ├── frontend/                          # ⭐ 前端系统 (Vue 3 + Vite)
@@ -105,67 +80,38 @@ computer-after-sales-ai/
 │   │   ├── package.json
 │   │   ├── vite.config.js
 │   │   └── src/
-│   │       ├── api/knowledge.js       # 请求客服后端的对话接口
-│   │       ├── views/
-│   │       │   └── Chat.vue           # 👈 我们写的极客暗黑风对话框 (带防脱壳、打字机特效)
-│   │       └── components/
-│   │           └── ChatBubble.vue     # 抽离出的 Markdown + 代码高亮气泡组件
+│   │       ├── App.vue                # 🚀 重构: 极客暗黑风 UI (集成流式打字机、折叠动画)
+│   │       ├── api/                   # 对接后端 /api/query 与 /api/user_sessions
+│   │       └── assets/                # svg 图标、全局 css
 │   │
 │   └── knowledge_platform_frontend/   # ⚙️ 2B 端：内部知识管理后台
 │       ├── package.json
 │       └── src/
-│           ├── layout/index.vue       # 👈 左侧胶囊导航栏、顶部面包屑布局
-│           ├── router/index.js        # 👈 NProgress 进度条与动态路由守卫
-│           ├── api/request.js         # Axios 统一拦截器
+│           ├── layout/index.vue       # 胶囊导航栏、顶部面包屑布局
 │           └── views/
-│               └── KnowledgeBase.vue  # 拖拽上传、切片预览、打入知识库界面
+│               └── KnowledgeBase.vue  # 拖拽上传、切片预览
 │
 │
 ├── data_pipeline/                     # ⭐ 离线数据处理流水线
-│   ├── crawlers/                      # 数据采集 (爬取联想/戴尔官网维修手册)
-│   │   ├── forum_crawler.py
-│   │   └── manual_crawler.py
-│   ├── processing/                    # 数据清洗
-│   │   ├── html_parser.py
-│   │   ├── cleaner.py                 # 清理 HTML 标签、水印、无效字符
-│   │   └── deduplicator.py            # 文本去重
+│   ├── crawlers/                      # 数据采集 (官网维修手册)
+│   ├── processing/                    # 数据清洗 (去重、提取)
 │   └── utils/
-│       └── storage.py
 │
 │
-├── data/                              # ⭐ 本地数据存储 (不提交 Git)
+├── data/                              # ⭐ 本地数据存储 (已加入 .gitignore)
+│   ├── sessions/                      # 🚀 新增: 用户的 JSON 历史对话记忆存放区
+│   │   └── root1/                     # └─ 隔离的用户目录
+│   │       ├── session_xxx.json       #    └─ 完整的 BaseMessage 上下文
+│   │       └── session_yyy.json       
 │   ├── raw/                           # 原始网页/PDF
 │   ├── cleaned/                       # 清洗后的标准 Markdown
-│   ├── chunks/                        # 切分后的 JSON 块备份
 │   └── vector_store/                  # ChromaDB 持久化 SQLite 数据文件
 │
 │
-├── evaluation/                        # ⭐ AI 质量评估模块
-│   ├── rag_eval.py                    # 评估召回率 (Hit Rate)、MRR
-│   ├── agent_eval.py                  # 评估 Agent 路由准确率、幻觉率 (Faithfulness)
-│   └── datasets/                      # 黄金测试集 (100 个极其刁钻的售后问题)
-│
-│
-├── observability/                     # ⭐ 系统监控与可观测性
-│   ├── tracing.py                     # LangSmith / Phoenix 调用链追踪配置
-│   ├── metrics.py                     # Prometheus 统计 Token 消耗与接口 Latency
-│   └── cost_tracker.py                # 记录不同模型的费用支出
-│
-│
-├── scripts/                           # ⭐ 自动化与运维脚本
-│   ├── init_mysql.py                  # 初始化数据库表结构
-│   ├── build_vector_db.py             # 一键将 data/cleaned 跑通流水线打入 ChromaDB
-│   └── start_all.sh                   # 一键拉起前后端双微服务
-│
-│
-├── tests/                             # ⭐ 自动化测试
-│   ├── test_agents/
-│   ├── test_rag/                      # 针对三路召回、Jieba分词写单测
-│   └── test_pipeline/
-│
-└── logs/
-    ├── customer_service.log           # 客服后端日志
-    └── knowledge_platform.log         # 知识库后端日志
+├── evaluation/                        # ⭐ AI 质量评估模块 (rag_eval, agent_eval)
+├── observability/                     # ⭐ 系统监控与可观测性 (tracing, metrics)
+├── scripts/                           # ⭐ 自动化与运维脚本 (init_mysql.py, start_all.sh)
+└── logs/                              # ⭐ 全局日志输出目录
 ```
 
 ---
