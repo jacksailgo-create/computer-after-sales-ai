@@ -1,0 +1,195 @@
+# ==========================================
+# 🌟 ITS 智能售后微服务集群 - 统一配置大纲
+# ==========================================
+
+# ------------------------------------------
+# 1. 数据库与中间件
+# ------------------------------------------
+database:
+  relational_db:
+    # 【核心开关】：当前激活的数据库类型 (可选: sqlite, mysql)
+    active: "sqlite"
+
+    # ------------------------------------
+    # 选项 A：SQLite 配置 (适合本地开发与测试)
+    # ------------------------------------
+    sqlite:
+      url: "sqlite:///data/kb_management.db"
+      pool_recycle: 3600
+      pool_pre_ping: true
+      echo_sql: false      # 是否在控制台打印底层 SQL 语句 (调试用)
+
+    # ------------------------------------
+    # 选项 B：MySQL 配置 (适合生产环境)
+    # ------------------------------------
+    mysql:
+      url: "mysql+pymysql://root:123456@127.0.0.1:3306/kb_management?charset=utf8mb4"
+      pool_recycle: 3600
+      pool_pre_ping: true
+      pool_size: 10        # 连接池核心连接数
+      max_overflow: 20     # 连接池最大超载连接数
+      echo_sql: false
+
+  # --- 向量数据库配置 (知识库 RAG) ---
+  vector_db:
+    # 选型: chroma, faiss, milvus, qdrant
+    provider: "chroma"
+    # 数据持久化目录 (我们之前在目录结构里留好的位置)
+    persist_directory: "data/vector_store"
+    # 集合名称 (类似于关系型数据库的 Table 名)
+    collection_name: "after_sales_knowledge"
+
+# ------------------------------------------
+# 2. 存储与文件管理
+# ------------------------------------------
+storage:
+  # 基础数据目录
+  base_dir: "data"
+  # 原始抓取数据存放路径
+  raw_dir: "data/raw"
+  # 清洗后的标准 Markdown 存放路径 (我们要用的)
+  cleaned_dir: "data/cleaned"
+  # 未来切块后的向量化前置文件存放路径
+  chunks_dir: "data/chunks"
+  # 上传的文件存放路径
+  upload_dir: "data/uploads"
+
+  # 上传限制
+  max_upload_size_mb: 50
+  allowed_extensions: ["pdf", "md", "txt", "docx", "html"]
+
+# ------------------------------------------
+# 3. 数据采集与爬虫策略
+# ------------------------------------------
+crawler:
+  # 默认请求头防封禁
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ITS-Knowledge-Bot/1.0"
+  # 爬取延迟 (秒)
+  delay_seconds: 2.0
+  # 请求超时时间
+  timeout: 10.0
+  # 最大重试次数
+  max_retries: 3
+sites:
+  manuals:
+    - name: lenovo_support
+      base_url: https://iknow.lenovo.com.cn/
+      knowledge_base_url: /knowledgeapi/api/knowledge/knowledgeDetails
+      type: html
+
+# ------------------------------------------
+# 4. 企业级日志系统
+# ------------------------------------------
+logging:
+  # 终端控制台的日志输出级别 (开发阶段设为 DEBUG，生产环境设为 INFO)
+  console_level: "DEBUG"
+  # 写入文件的最低日志级别
+  file_level: "DEBUG"
+  # 日志存放统一目录 (系统将自动在项目根目录下创建)
+  log_dir: "logs"
+  # 统一的高颜值、高信息量输出格式
+  # 效果示例: 2026-03-12 10:15:30 | INFO     | [chat_service.py:42] | 成功响应用户请求
+  format: "%(asctime)s | %(levelname)-8s | [%(filename)s:%(lineno)d] | %(message)s"
+  # 双重切割策略 (按时间 + 按大小)
+  # 每天午夜轮转，但如果单天单文件超过 50MB，也会立刻切割，防止塞爆服务器磁盘
+  rotation_time: "midnight"
+  max_bytes: 52428800  # 50 MB (50 * 1024 * 1024)
+  # 各级别日志文件的保留天数 (过期自动清理)
+  retention:
+    debug_days: 7      # 详细流水账：数据量极大，短期保留
+    info_days: 30      # 核心业务轨迹：常规运行日志，中期保留
+    error_days: 90     # 致命错误记录：纯净排错本，价值极高，长期保留
+  # 第三方库噪音屏蔽名单 (强行将这些底层库的日志输出底线拉高到 WARNING)
+  mute_libraries:
+    - "httpx"
+    - "httpcore"
+    - "chromadb"
+    - "langchain_core"
+    - "openai"
+    - "urllib3"
+
+# ------------------------------------------
+# 5. 大模型与检索增强 (LLM & RAG)
+# ------------------------------------------
+llm:
+  # ----------------------------------------
+  # A. 物理模型池 (对接各大厂商的凭证与基建)
+  # ----------------------------------------
+  providers:
+    # 厂商 1：OpenAI (用于复杂推理)
+    openai:
+      base_url: "https://api.openai.com/v1"
+      # api_key: "sk-xxxx"  # 强烈建议在 .env 中通过 APP_OPENAI_KEY 覆盖，不要写死在 YAML
+
+    # 厂商 2：DeepSeek (性价比高，用于写代码或海量 RAG 总结)
+    deepseek:
+      base_url: "https://api.deepseek.com/v1"
+
+    # 厂商 3：硅基流动 (SiliconFlow)
+    siliconflow:
+      base_url: "https://api.siliconflow.cn/v1"
+      api_key: "sk-vnxijjgodhcjisacoilnebjzzlqmrwyuluqdxcpwauocgqjm"
+
+    # 厂商 4：阿里云 (用于处理敏感数据，如 Ollama + Qwen)
+    qwen:
+      base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+      api_key: "sk-26d57c968c364e7bb14f1fc350d4bff0"
+
+    # 厂商 4：本地私有化部署 (如 Ollama + Qwen，用于处理极其敏感的用户隐私数据)
+    local_ollama:
+      base_url: "http://localhost:11434/v1"
+
+  # ----------------------------------------
+  # B. 业务路由表 (将具体的 Agent 映射到物理模型上)
+  # ----------------------------------------
+  routing:
+    # 1. 路由大管家 (需要最强的逻辑判断能力，必须用最好的模型)
+    supervisor_agent:
+      provider: "siliconflow"
+      model: "Qwen/Qwen3-32B"
+      temperature: 0.0      # 路由分发必须绝对确定，温度降到 0
+
+    # 2. 排障专家 (需要懂技术，DeepSeek 足够，且便宜)
+    tech_agent:
+      provider: "qwen"
+      model: "qwen3-max"
+      temperature: 0      # 稍微给点温度，让语气像人
+
+    # 3. 服务咨询专家 (需要懂业务，DeepSeek 足够，且便宜)
+    service_agent:
+      provider: "qwen"
+      model: "qwen3-max"
+      temperature: 0      # 稍微给点温度，让语气像人
+
+    # 4. 知识库 RAG 总结 (数据量大，本地跑或者用便宜模型)
+    knowledge_rag:
+      provider: "siliconflow"
+      model: "Qwen/Qwen3-32B"
+      temperature: 0.1
+
+    # 5. 向量化 Embedding 模型 (独立于聊天模型)
+    embedding:
+      provider: "siliconflow"
+      model: "BAAI/bge-m3"
+
+rag:
+  retrieval_top_k: 5       # 多路召回最终交给大模型的文档片段数量
+  chunk_size: 600          # 文档切分长度
+  chunk_overlap: 100       # 切分重叠长度
+
+# ------------------------------------------
+# 6. 微服务与 MCP 通信 (Microservices)
+# ------------------------------------------
+kb_service:
+  base_url: "http://127.0.0.1:8001/api/v1/chat"
+  timeout: 120.0
+
+search_service:
+  base_url: "https://dashscope.aliyuncs.com/api/v1/mcps/WebSearch/sse"
+  api_key: "sk-26d57c968c364e7bb14f1fc350d4bff0"
+  timeout: 60.0
+
+map_service:
+  base_url: "https://mcp.map.baidu.com/sse?ak="
+  api_key: "kTKdTNRLndgbvBpYngbizpBGX2eBVJIj"
+  timeout: 60.0

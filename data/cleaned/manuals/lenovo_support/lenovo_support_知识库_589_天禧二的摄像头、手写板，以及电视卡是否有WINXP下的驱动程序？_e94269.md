@@ -1,0 +1,33 @@
+---
+source: lenovo_support
+url: https://iknow.lenovo.com.cn//knowledgeapi/api/knowledge/knowledgeDetails?knowledgeNo=589
+category: manuals
+---
+
+# 知识库 589
+
+## 天禧二的摄像头、手写板，以及电视卡是否有WINXP下的驱动程序？
+
+## 问题描述
+天禧二的摄像头、手写板，以及电视卡安装有WINXP下的驱动程序的方法。
+
+## 分类
+主类别: 内置设备
+子类别: 音箱或喇叭
+问题类别: 音箱或喇叭
+
+## 元数据
+创建时间: 2024-12-15|版本: 1.0
+
+## 解决方案
+**问题描述：**
+
+天禧二的摄像头、手写板，以及电视卡是否有WINXP下的[驱动](http://iknow.lenovo.com/knowledgeDetail.html?knowledgeId=17488)程序？
+
+**解决方案：**
+
+天禧二的随机[外设](http://iknow.lenovo.com/knowledgeDetail.html?knowledgeId=17568)如摄像头、手写板，以及个别天禧二系列主机的电视卡只有随机操作系统的驱动程序，因天禧二全系列未曾随机配备过XP操作系统，我公司没有且并不准备开发相应部件在XP下的驱动程序，请您谅解。
+
+天禧二的随机外设如摄像头、手写板，以及个别天禧二系列主机的电视卡只有随机操作系统的驱动程序，因天禧二全系列未曾随机配备过XP操作系统，我公司没有且并不准备开发相应部件在XP。
+
+<!-- 文档主题: 天禧二的摄像头、手写板，以及电视卡是否有WINXP下的驱动程序？ （知识库编号: 589） -->

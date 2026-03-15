@@ -1,0 +1,42 @@
+---
+source: lenovo_support
+url: https://iknow.lenovo.com.cn//knowledgeapi/api/knowledge/knowledgeDetails?knowledgeNo=252
+category: manuals
+---
+
+# 知识库 252
+
+## 如何启动或禁用Windows防火墙服务
+
+## 问题描述
+如何启动或禁用Windows防火墙服务
+
+## 分类
+主类别: 操作系统故障
+子类别: 系统应用操作
+问题类别: 系统应用操作
+
+## 元数据
+创建时间: 2024-12-15|版本: 2.0
+
+## 解决方案
+与Windows防火墙相关的服务，是以下两个服务：
+
+**Network Connections
+Windows Management Instrumentation解决方案：**
+
+我的电脑右键选择“**管理**”，在打开的窗口选择“**服务和应用程序**”->“**服务**”，右侧分别找到这两个服务，检查是否是已启动状态，如果不是右键选择“**启动**”或者“**重启服务**”，再尝试防火墙服务是否能正常开启。
+
+Windows XP 与Windows 7 Windows8 操作方法类似，本文以Windows 7为例，具体操作方法如下：
+
+1、点击“**计算机**”鼠标右键“**管理**”，
+
+2、点击“**服务和应用程序**”->“**服务**”，
+
+3、在右侧找到“**Network Connections**”，开启服务，
+
+
+
+4、继续查找第二个服务“**Windows Management Instrumentation**” 开启服务，
+
+<!-- 文档主题: 如何启动或禁用Windows防火墙服务 （知识库编号: 252） -->

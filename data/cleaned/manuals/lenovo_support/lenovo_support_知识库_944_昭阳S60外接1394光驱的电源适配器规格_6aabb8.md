@@ -1,0 +1,25 @@
+---
+source: lenovo_support
+url: https://iknow.lenovo.com.cn//knowledgeapi/api/knowledge/knowledgeDetails?knowledgeNo=944
+category: manuals
+---
+
+# 知识库 944
+
+## 昭阳S60外接1394光驱的电源适配器规格
+
+## 问题描述
+昭阳S60外接1394光驱的电源适配器规格。
+
+## 分类
+主类别: 内置设备
+子类别: 光驱
+问题类别: 光驱
+
+## 元数据
+创建时间: 2024-12-15|版本: 1.0
+
+## 解决方案
+[昭阳](http://iknow.lenovo.com/knowledgeDetail.html?knowledgeId=17971)S60外接1394光驱的电源[适配器](http://iknow.lenovo.com/knowledgeDetail.html?knowledgeId=17364)规格
+
+<!-- 文档主题: 昭阳S60外接1394光驱的电源适配器规格 （知识库编号: 944） -->

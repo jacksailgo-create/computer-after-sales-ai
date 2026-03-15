@@ -1,0 +1,17 @@
+---
+source: lenovo_support
+url: https://iknow.lenovo.com.cn//knowledgeapi/api/knowledge/knowledgeDetails?knowledgeNo=161
+category: manuals
+---
+
+# 知识库 161
+
+## 联想智能电视与其它有线电视、数字电视有什么区别？
+
+## 元数据
+创建时间: 2024-12-15|版本: 1.0
+
+## 解决方案
+联想智能电视除了可以看传统电视节目之外，还能为您提供更多的内容选择，包括海量的在线[视频](/detail/kd_17880.html)以及定制化电视游戏、应用程序等。
+
+<!-- 文档主题: 联想智能电视与其它有线电视、数字电视有什么区别？ （知识库编号: 161） -->

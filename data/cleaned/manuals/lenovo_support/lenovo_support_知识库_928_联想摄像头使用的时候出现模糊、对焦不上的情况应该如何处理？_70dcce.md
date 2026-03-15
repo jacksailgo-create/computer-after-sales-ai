@@ -1,0 +1,35 @@
+---
+source: lenovo_support
+url: https://iknow.lenovo.com.cn//knowledgeapi/api/knowledge/knowledgeDetails?knowledgeNo=928
+category: manuals
+---
+
+# 知识库 928
+
+## 联想摄像头使用的时候出现模糊、对焦不上的情况应该如何处理？
+
+## 问题描述
+联想摄像头使用的时候出现模糊、对焦不上的情况应该如何处理。
+
+## 分类
+主类别: 内置设备
+子类别: 摄像头
+问题类别: 摄像头
+
+## 元数据
+创建时间: 2024-12-15|版本: 1.0
+
+## 解决方案
+如果在使用摄像头的时候出现以下情况，通常是由于摄像头镜头没有对焦好造成的。
+
+![1.bmp](/upload/image/20160306/1457271973234456.bmp "1457271973234456.bmp")
+
+请转一下摄像头镜头外圈，即可解决。
+
+![](https://webdoc.lenovo.com.cn/lenovowsi/uploadimages/2005-03-16/6ApKU67fcAmPNe65.jpg)
+
+看看对焦之后的效果：
+
+![](https://webdoc.lenovo.com.cn/lenovowsi/uploadimages/2005-03-16/oLhyhc7W3hTPPeH8.bmp)
+
+<!-- 文档主题: 联想摄像头使用的时候出现模糊、对焦不上的情况应该如何处理？ （知识库编号: 928） -->

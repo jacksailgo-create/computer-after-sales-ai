@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "computer-after-sales-ai"
+version = "0.1.0"
+description = "企业级电脑售后多智能体系统 (Monorepo)"
+
+# 👇 核心魔法：告诉打包工具去哪里找代码
+[tool.setuptools.packages.find]
+where = ["services/knowledge_platform_backend"]
+# include = ["api*", "core*", "rag*"] # 可选：显式声明哪些是你的包

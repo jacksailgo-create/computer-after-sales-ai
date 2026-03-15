@@ -1,0 +1,33 @@
+---
+source: lenovo_support
+url: https://iknow.lenovo.com.cn//knowledgeapi/api/knowledge/knowledgeDetails?knowledgeNo=176
+category: manuals
+---
+
+# 知识库 176
+
+## 智能电视如何注册登录？哪些服务需要登录用户？
+
+## 问题描述
+登陆用户后具有更加丰富的操作内容，下面将给您指导智能电视如何注册登录，哪些服务需要登录用户。
+
+## 分类
+主类别: 预装软件
+子类别: 其他随机软件
+问题类别: 其他随机软件
+
+## 元数据
+创建时间: 2024-12-15|版本: 1.0
+
+## 解决方案
+1、您可在第一次开机时，在开机引导的配置流程中登录或注册帐号。
+
+2、对于新注册用户，我们提供了快速注册帐号的方式。
+
+3、进入电视系统后也可以在设置---账户中注册，如果您已经拥有联想账号，则可以直接登陆使用。
+
+4、登陆后您可使用乐商店、下载应用、购买付费节目、收藏节目、云端[备份](http://iknow.lenovo.com/knowledgeDetail.html?knowledgeId=17770)[历史记录](http://iknow.lenovo.com/knowledgeDetail.html?knowledgeId=17791)以及[微博](http://iknow.lenovo.com/knowledgeDetail.html?knowledgeId=17430)评论等，微博评论还需要登录您的微博帐号。
+
+5、您在登录一次后不需要再次登录，系统会记住您上次登录的状态。
+
+<!-- 文档主题: 智能电视如何注册登录？哪些服务需要登录用户？ （知识库编号: 176） -->

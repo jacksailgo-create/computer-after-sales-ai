@@ -1,0 +1,43 @@
+---
+source: lenovo_support
+url: https://iknow.lenovo.com.cn//knowledgeapi/api/knowledge/knowledgeDetails?knowledgeNo=255
+category: manuals
+---
+
+# 知识库 255
+
+## 如何安装卡巴斯基杀毒软件
+
+## 问题描述
+如何安装卡巴斯基杀毒软件
+
+## 分类
+主类别: 病毒与安全
+子类别: 病毒查杀
+问题类别: 病毒查杀
+
+## 元数据
+创建时间: 2024-12-15|版本: 1.0
+
+## 解决方案
+1、双击运行卡巴斯基安装文件：
+
+![](http://robotterm.ecare365.com/ZmptY2NtYW5hZ2Vy/p4data/Rdata/Rfiles/installkb.files/image002.jpg)
+
+2、具体安装过程如下：
+
+![](http://robotterm.ecare365.com/ZmptY2NtYW5hZ2Vy/p4data/Rdata/Rfiles/installkb.files/image004.jpg)
+
+![](http://robotterm.ecare365.com/ZmptY2NtYW5hZ2Vy/p4data/Rdata/Rfiles/installkb.files/image006.jpg)
+
+![](http://robotterm.ecare365.com/ZmptY2NtYW5hZ2Vy/p4data/Rdata/Rfiles/installkb.files/image008.jpg)
+
+如有用户权限提示，则点击确认，然后继续安装：
+
+![](http://robotterm.ecare365.com/ZmptY2NtYW5hZ2Vy/p4data/Rdata/Rfiles/installkb.files/image010.jpg)
+
+![](http://robotterm.ecare365.com/ZmptY2NtYW5hZ2Vy/p4data/Rdata/Rfiles/installkb.files/image012.jpg)
+
+3、 安装过程完成，则[启动](/detail/kd_17514.html)卡巴斯基反病毒[软件](/detail/kd_17963.html)2013。
+
+<!-- 文档主题: 如何安装卡巴斯基杀毒软件 （知识库编号: 255） -->

@@ -1,0 +1,33 @@
+---
+source: lenovo_support
+url: https://iknow.lenovo.com.cn//knowledgeapi/api/knowledge/knowledgeDetails?knowledgeNo=211
+category: manuals
+---
+
+# 知识库 211
+
+## 如何更新网卡的IP地址
+
+## 问题描述
+IP地址是指互联网协议地址（英语：Internet Protocol Address，又译为网际协议地址），是IP Address的缩写，下面将指导如何更新IP地址。
+
+## 分类
+主类别: 网络问题
+子类别: 网络设置
+问题类别: 网络设置
+
+## 元数据
+创建时间: 2024-12-15|版本: 2.0
+
+## 解决方案
+1、同时按“**Windows徽标**”键+“**R**”键，在运行窗口里输入“**CMD**”后点“**确定**”；如图所示：
+
+![](http://robotrs.lenovo.com.cn/ZmptY2NtYW5hZ2Vy/p4data/Rdata/Rfiles/464.files/image001.jpg)
+
+2、在弹出的窗口里输入“**ipconfig /renew**”后按回车，如图所示：
+
+![](http://robotrs.lenovo.com.cn/ZmptY2NtYW5hZ2Vy/p4data/Rdata/Rfiles/464.files/image002.jpg)
+
+3、 等待IP地址更新完成。
+
+<!-- 文档主题: 如何更新网卡的IP地址 （知识库编号: 211） -->

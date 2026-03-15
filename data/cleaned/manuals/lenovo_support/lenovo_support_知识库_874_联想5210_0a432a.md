@@ -1,0 +1,31 @@
+---
+source: lenovo_support
+url: https://iknow.lenovo.com.cn//knowledgeapi/api/knowledge/knowledgeDetails?knowledgeNo=874
+category: manuals
+---
+
+# 知识库 874
+
+## 联想5210
+
+## 问题描述
+5260彩色喷墨打印机拆装墨盒的步骤，注意彩色墨盒装在右侧，黑色墨盒在左侧。
+
+## 分类
+主类别: 接口与外置设备
+子类别: 打印机/扫描仪连接
+问题类别: 打印机/扫描仪连接
+
+## 元数据
+创建时间: 2024-12-15|版本: 1.0
+
+## 解决方案
+![](https://webdoc.lenovo.com.cn/lenovowsi/uploadimages/2005-02-21/KAP8Gxf7xn04gUlU.JPG)
+
+![](https://webdoc.lenovo.com.cn/lenovowsi/uploadimages/2005-02-21/FJSybCDt8TKDnLn4.JPG)
+
+![](https://webdoc.lenovo.com.cn/lenovowsi/uploadimages/2005-02-21/jAwV80AYhC80J0Ii.JPG)
+
+![](https://webdoc.lenovo.com.cn/lenovowsi/uploadimages/2005-02-21/fYrDX6Q9TPdQpi2C.JPG)
+
+<!-- 文档主题: 联想5210 （知识库编号: 874） -->
