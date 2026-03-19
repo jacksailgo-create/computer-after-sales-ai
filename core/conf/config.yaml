@@ -128,12 +128,12 @@ llm:
     # 厂商 3：硅基流动 (SiliconFlow)
     siliconflow:
       base_url: "https://api.siliconflow.cn/v1"
-      api_key: "sk-vnxijjgodhcjisacoilnebjzzlqmrwyuluqdxcpwauocgqjm"
+      api_key: "sk-"
 
     # 厂商 4：阿里云 (用于处理敏感数据，如 Ollama + Qwen)
     qwen:
       base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
-      api_key: "sk-26d57c968c364e7bb14f1fc350d4bff0"
+      api_key: "sk-"
 
     # 厂商 4：本地私有化部署 (如 Ollama + Qwen，用于处理极其敏感的用户隐私数据)
     local_ollama:
@@ -186,10 +186,10 @@ kb_service:
 
 search_service:
   base_url: "https://dashscope.aliyuncs.com/api/v1/mcps/WebSearch/sse"
-  api_key: "sk-26d57c968c364e7bb14f1fc350d4bff0"
+  api_key: "sk-"
   timeout: 60.0
 
 map_service:
   base_url: "https://mcp.map.baidu.com/sse?ak="
-  api_key: "kTKdTNRLndgbvBpYngbizpBGX2eBVJIj"
+  api_key: "kT"
   timeout: 60.0
